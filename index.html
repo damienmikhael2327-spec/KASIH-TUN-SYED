@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="ms" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KASIH TUN SYED - Portal Keselamatan Emosi & Psikososial</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .breathing-circle {
+            transition: transform 4s ease-in-out, background-color 4s ease-in-out;
+        }
+        .breathing-active-inhale {
+            transform: scale(1.6);
+            background-color: #99f6e4 !important;
+        }
+        .breathing-active-hold {
+            transform: scale(1.6);
+            background-color: #fef08a !important;
+        }
+        .breathing-active-exhale {
+            transform: scale(1);
+            background-color: #bae6fd !important;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col selection:bg-brand-500 selection:text-white">
+
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-teal-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center space-x-3.5">
+                    <div class="relative w-14 h-14 rounded-2xl bg-gradient-to-tr from-teal-600 via-brand-500 to-emerald-400 p-0.5 shadow-lg shadow-teal-500/25 shrink-0 overflow-hidden flex items-center justify-center transform hover:scale-105 transition">
+                        <img src="images (6).jpeg" alt="Logo SM Sains Tun Syed Sheh Shahabudin" class="w-full h-full object-cover rounded-[14px] bg-white" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center text-white bg-teal-600\'><i class=\'fa-solid fa-graduation-cap text-2xl\'></i></div>';">
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xs font-extrabold tracking-wider uppercase text-brand-700 bg-brand-50 px-2 py-0.5 rounded-md border border-brand-200">KASIH TUN SYED</span>
+                            <span class="hidden sm:inline-block text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200"><i class="fa-solid fa-circle text-[8px] text-emerald-500 mr-1"></i> 690 Pelajar</span>
+                        </div>
+                        <h1 class="text-xs sm:text-sm font-extrabold text-slate-900 leading-tight mt-0.5">SEKOLAH MENENGAH SAINS TUN SYED SHEH SHAHABUDIN</h1>
+                    </div>
+                </div>
+
+                <nav class="hidden md:flex space-x-1 lg:space-x-2 text-sm font-medium text-slate-600">
+                    <a href="#utama" class="px-3 py-2 rounded-lg hover:text-brand-600 hover:bg-brand-50 transition">Utama</a>
+                    <a href="#pilar" class="px-3 py-2 rounded-lg hover:text-brand-600 hover:bg-brand-50 transition">4 Aspek</a>
+                    <a href="#ujian" class="px-3 py-2 rounded-lg hover:text-brand-600 hover:bg-brand-50 transition">Ujian Emosi</a>
+                    <a href="#pernafasan" class="px-3 py-2 rounded-lg hover:text-brand-600 hover:bg-brand-50 transition">Pernafasan</a>
+                    <a href="#prs" class="px-3 py-2 rounded-lg hover:text-brand-600 hover:bg-brand-50 transition">PRS Hub</a>
+                    <a href="#temujanji" class="px-3 py-2 rounded-lg hover:text-brand-600 hover:bg-brand-50 transition">Temujanji</a>
+                </nav>
+
+                <div class="hidden lg:flex items-center space-x-3">
+                    <button onclick="openSheetsConfigModal()" class="inline-flex items-center space-x-1.5 bg-teal-50 text-teal-700 border border-teal-200 px-3.5 py-2 rounded-xl text-xs font-semibold hover:bg-teal-100 transition shadow-sm" title="Tetapan Google Sheets">
+                        <i class="fa-solid fa-file-excel text-emerald-600"></i>
+                        <span>Paut Google Sheets</span>
+                    </button>
+                    <a href="#kecemasan" class="inline-flex items-center space-x-2 bg-rose-50 text-rose-600 border border-rose-200 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-rose-100 transition shadow-sm">
+                        <i class="fa-solid fa-phone-volume animate-pulse"></i>
+                        <span>Bantuan Kecemasan</span>
+                    </a>
+                </div>
+
+                <div class="md:hidden flex items-center space-x-2">
+                    <button onclick="openSheetsConfigModal()" class="p-2 rounded-lg text-teal-700 bg-teal-50 hover:bg-teal-100">
+                        <i class="fa-solid fa-file-excel"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 bg-white px-4 pt-2 pb-4 space-y-1">
+            <a href="#utama" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600">Utama</a>
+            <a href="#pilar" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600">4 Aspek Keselamatan</a>
+            <a href="#ujian" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600">Ujian Kesejahteraan Emosi</a>
+            <a href="#pernafasan" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600">Intervensi Pernafasan</a>
+            <a href="#prs" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600">Peranan Rakan Sebaya (PRS)</a>
+            <a href="#temujanji" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600">Borang Kaunseling Sulit</a>
+            <a href="#kecemasan" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-rose-600 bg-rose-50">Talian Kecemasan</a>
+        </div>
+    </header>
+
+    <section id="utama" class="relative overflow-hidden bg-gradient-to-b from-brand-50 via-teal-50/30 to-slate-50 py-12 lg:py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                <div class="lg:col-span-6 space-y-6 text-center lg:text-left">
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2">
+                        <span class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-teal-100/90 text-brand-800 text-xs sm:text-sm font-bold border border-teal-200 shadow-sm">
+                            <i class="fa-solid fa-shield-heart text-brand-600"></i>
+                            <span>Portal Rasmi KASIH TUN SYED</span>
+                        </span>
+                        <span class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs sm:text-sm font-bold border border-emerald-200">
+                            <i class="fa-solid fa-graduation-cap text-emerald-600"></i>
+                            <span>690 Enrolmen Pelajar</span>
+                        </span>
+                    </div>
+                    
+                    <div class="flex items-center justify-center lg:justify-start space-x-4 mb-2">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-teal-600 to-emerald-400 p-1 shadow-xl shadow-teal-500/20 overflow-hidden bg-white shrink-0">
+                            <img src="images (6).jpeg" alt="Logo Sekolah" class="w-full h-full object-cover rounded-xl" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center text-white bg-teal-700\'><i class=\'fa-solid fa-school text-2xl\'></i></div>';">
+                        </div>
+                        <div class="text-left">
+                            <h2 class="text-xs font-bold uppercase text-brand-700 tracking-wider">SM SAINS TUN SYED SHEH SHAHABUDIN</h2>
+                            <p class="text-sm font-extrabold text-slate-800">KASIH TUN SYED - Kesejahteraan Jiwa & Minda</p>
+                        </div>
+                    </div>
+
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 leading-tight">
+                        Kesejahteraan Emosi Membina <span class="bg-gradient-to-r from-brand-600 to-emerald-600 bg-clip-text text-transparent">Masa Depan Sejahtera</span>
+                    </h1>
+                    <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        Selamat datang ke <span class="font-extrabold text-brand-700">KASIH TUN SYED</span> — Portal Keselamatan Emosi & Psikososial SEKOLAH MENENGAH SAINS TUN SYED SHEH SHAHABUDIN. Kami bersedia menyokong seluruh <span class="font-bold text-slate-800">690 warga pelajar</span> sekolah dan asrama.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="#ujian" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-center shadow-lg shadow-brand-500/30 transition transform hover:-translate-y-0.5">
+                            <i class="fa-solid fa-clipboard-check mr-2"></i> Uji Tahap Emosi Anda
+                        </a>
+                        <a href="#pernafasan" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 font-semibold text-center shadow-sm transition">
+                            <i class="fa-solid fa-wind mr-2 text-teal-500"></i> Latihan Penenangan
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6">
+                    <div class="relative mx-auto max-w-lg">
+                        <div class="absolute -top-4 -left-4 w-72 h-72 bg-teal-200 rounded-full filter blur-3xl opacity-50 animate-pulse"></div>
+                        <div class="absolute -bottom-4 -right-4 w-72 h-72 bg-sky-200 rounded-full filter blur-3xl opacity-50"></div>
+                        
+                        <div class="relative glass-card rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/80 backdrop-blur-xl">
+                            <div class="flex items-center justify-between mb-6 pb-4 border-b border-teal-100">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-600 to-emerald-500 flex items-center justify-center text-white text-xl shadow-lg shadow-brand-500/30">
+                                        <i class="fa-solid fa-diagram-project"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-extrabold text-slate-900 text-base sm:text-lg">Carta Alir Penggunaan</h3>
+                                        <p class="text-xs text-brand-700 font-medium">Langkah Mudah Panduan Sokongan Emosi</p>
+                                    </div>
+                                </div>
+                                <span class="px-2.5 py-1 rounded-full bg-brand-100 text-brand-800 text-[10px] font-bold tracking-wide uppercase">4 Langkah</span>
+                            </div>
+
+                            <div class="space-y-4 relative before:absolute before:left-6 before:top-4 before:bottom-4 before:w-1 before:bg-gradient-to-b before:from-brand-500 before:via-amber-400 before:to-emerald-500 before:rounded-full">
+                                <div class="relative flex items-start space-x-3.5 bg-white/90 hover:bg-white p-3.5 rounded-2xl border border-slate-100 shadow-sm transition hover:shadow-md group">
+                                    <div class="w-8 h-8 rounded-xl bg-brand-500 text-white flex items-center justify-center text-xs font-bold shrink-0 z-10 shadow-md group-hover:scale-110 transition">1</div>
+                                    <div class="flex-1 text-xs">
+                                        <div class="flex items-center justify-between">
+                                            <span class="font-bold text-slate-800 text-xs sm:text-sm">Mula: Jawab Saringan Emosi</span>
+                                            <span class="text-[10px] bg-brand-50 text-brand-700 px-2 py-0.5 rounded-md font-semibold">21 Soalan</span>
+                                        </div>
+                                        <p class="text-slate-600 mt-0.5">Isi maklumat diri & jawab soalan saringan untuk penilaian awal.</p>
+                                    </div>
+                                </div>
+
+                                <div class="relative flex items-start space-x-3.5 bg-white/90 hover:bg-white p-3.5 rounded-2xl border border-slate-100 shadow-sm transition hover:shadow-md group">
+                                    <div class="w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center text-xs font-bold shrink-0 z-10 shadow-md group-hover:scale-110 transition">2</div>
+                                    <div class="flex-1 text-xs">
+                                        <div class="flex items-center justify-between">
+                                            <span class="font-bold text-slate-800 text-xs sm:text-sm">Pautan Google Sheets Guru</span>
+                                            <span class="text-[10px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-md font-semibold">Auto-Sync</span>
+                                        </div>
+                                        <p class="text-slate-600 mt-0.5">Data dihantar secara automatik ke fail Google Sheets unit kaunseling.</p>
+                                    </div>
+                                </div>
+
+                                <div class="relative flex items-start space-x-3.5 bg-white/90 hover:bg-white p-3.5 rounded-2xl border border-slate-100 shadow-sm transition hover:shadow-md group">
+                                    <div class="w-8 h-8 rounded-xl bg-sky-500 text-white flex items-center justify-center text-xs font-bold shrink-0 z-10 shadow-md group-hover:scale-110 transition">3</div>
+                                    <div class="flex-1 text-xs">
+                                        <div class="flex items-center justify-between">
+                                            <span class="font-bold text-slate-800 text-xs sm:text-sm">Intervensi Pantas Pernafasan</span>
+                                            <i class="fa-solid fa-arrow-trend-up text-sky-500"></i>
+                                        </div>
+                                        <p class="text-slate-600 mt-0.5">Lakukan latihan 4-7-8 atau baca kata semangat di Dinding Murni.</p>
+                                    </div>
+                                </div>
+
+                                <div class="relative flex items-start space-x-3.5 bg-white/90 hover:bg-white p-3.5 rounded-2xl border border-slate-100 shadow-sm transition hover:shadow-md group">
+                                    <div class="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-xs font-bold shrink-0 z-10 shadow-md group-hover:scale-110 transition">4</div>
+                                    <div class="flex-1 text-xs">
+                                        <div class="flex items-center justify-between">
+                                            <span class="font-bold text-slate-800 text-xs sm:text-sm">Sesi Sulit Bersama GBK</span>
+                                            <span class="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-md font-semibold">Peribadi</span>
+                                        </div>
+                                        <p class="text-slate-600 mt-0.5">Tempah temujanji sulit dengan Guru Bimbingan dan Kaunseling.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pilar" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900">4 Aspek Keselamatan Emosi & Psikososial</h3>
+                <p class="text-slate-600 mt-3 text-sm sm:text-base">Ekosistem lengkap yang dirangka khas untuk memastikan setiap daripada 690 murid dan penghuni asrama mendapat sokongan emosi holistik.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-gradient-to-b from-slate-50 to-teal-50/30 rounded-2xl p-6 border border-teal-100/80 shadow-sm hover:shadow-md transition">
+                    <div class="w-12 h-12 rounded-xl bg-teal-500 text-white flex items-center justify-center text-xl mb-4 shadow-md shadow-teal-500/20">
+                        <i class="fa-solid fa-users-gear"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-800 mb-2">1. Sistem Sokongan Murid</h4>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        Jaringan sokongan teguh merangkumi Guru Bimbingan & Kaunseling, Wardan Asrama, Guru Kelas, serta Pentadbir Sekolah untuk mendengar dan membantu murid.
+                    </p>
+                </div>
+
+                <div class="bg-gradient-to-b from-slate-50 to-sky-50/30 rounded-2xl p-6 border border-sky-100/80 shadow-sm hover:shadow-md transition">
+                    <div class="w-12 h-12 rounded-xl bg-sky-500 text-white flex items-center justify-center text-xl mb-4 shadow-md shadow-sky-500/20">
+                        <i class="fa-solid fa-face-smile"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-800 mb-2">2. Kesejahteraan Emosi</h4>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        Panduan pengurusan tekanan, kesedaran emosi diri, latihan kesedaran (mindfulness), serta kemahiran daya tindak (coping skills) yang positif.
+                    </p>
+                </div>
+
+                <div class="bg-gradient-to-b from-slate-50 to-amber-50/30 rounded-2xl p-6 border border-amber-100/80 shadow-sm hover:shadow-md transition">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500 text-white flex items-center justify-center text-xl mb-4 shadow-md shadow-amber-500/20">
+                        <i class="fa-solid fa-hand-holding-medical"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-800 mb-2">3. Intervensi Awal</h4>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        Langkah pantas mengenal pasti tanda-tanda awal kemurungan, ketegangan jiwa, atau isu emosi sebelum menjadi lebih berisiko tinggi.
+                    </p>
+                </div>
+
+                <div class="bg-gradient-to-b from-slate-50 to-emerald-50/30 rounded-2xl p-6 border border-emerald-100/80 shadow-sm hover:shadow-md transition">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500 text-white flex items-center justify-center text-xl mb-4 shadow-md shadow-emerald-500/20">
+                        <i class="fa-solid fa-people-carry-box"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-800 mb-2">4. Peranan Rakan Sebaya</h4>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        Pengaktifan Pembimbing Rakan Sebaya (PRS) yang berempati, berkemahiran mendengar, dan membudayakan nilai bantu-membantu dalam komuniti.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ujian" class="py-16 bg-slate-100/70 border-y border-slate-200">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-200/80">
+                <div class="text-center mb-8">
+                    <span class="px-3 py-1 rounded-full bg-brand-100 text-brand-700 text-xs font-bold uppercase tracking-wider">Ujian Semakan Kendiri DASS-21</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">Ujian Kesejahteraan Emosi (Bilingual)</h2>
+                    <p class="text-slate-600 text-sm sm:text-base mt-2">Sila lengkapkan butiran diri dan jawab soalan berikut mengikut keadaan yang menggambarkan perasaan anda sepanjang minggu yang lalu.</p>
+                </div>
+
+                <form id="quiz-form" class="space-y-6">
+                    <div class="p-5 rounded-2xl bg-teal-50/60 border border-teal-200 space-y-4">
+                        <h3 class="font-bold text-slate-800 text-sm flex items-center justify-between">
+                            <span class="flex items-center gap-2"><i class="fa-solid fa-user-pen text-brand-600"></i> Bahagian 1: Perkenalan Diri</span>
+                            <span class="text-[11px] text-emerald-700 font-semibold bg-emerald-100 px-2.5 py-1 rounded-lg"><i class="fa-solid fa-database mr-1"></i> Auto-Sync ke Google Sheets</span>
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 mb-1">1. Nama Penuh</label>
+                                <input type="text" id="quiz-name" required placeholder="Cth: Ahmad Zaki" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm bg-white focus:ring-2 focus:ring-brand-500 outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 mb-1">2. Tingkatan & Kelas</label>
+                                <select id="quiz-class" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm bg-white focus:ring-2 focus:ring-brand-500 outline-none">
+                                    <option value="">-- Pilih Kelas --</option>
+                                    <optgroup label="Tingkatan 1">
+                                        <option value="1 Bestari">1 Bestari</option>
+                                        <option value="1 Fikrah">1 Fikrah</option>
+                                        <option value="1 Cendekia">1 Cendekia</option>
+                                        <option value="1 Sarjana">1 Sarjana</option>
+                                        <option value="1 Intelek">1 Intelek</option>
+                                    </optgroup>
+                                    <optgroup label="Tingkatan 2">
+                                        <option value="2 Bestari">2 Bestari</option>
+                                        <option value="2 Fikrah">2 Fikrah</option>
+                                        <option value="2 Cendekia">2 Cendekia</option>
+                                        <option value="2 Sarjana">2 Sarjana</option>
+                                        <option value="2 Intelek">2 Intelek</option>
+                                    </optgroup>
+                                    <optgroup label="Tingkatan 3">
+                                        <option value="3 Bestari">3 Bestari</option>
+                                        <option value="3 Fikrah">3 Fikrah</option>
+                                        <option value="3 Cendekia">3 Cendekia</option>
+                                        <option value="3 Sarjana">3 Sarjana</option>
+                                        <option value="3 Intelek">3 Intelek</option>
+                                    </optgroup>
+                                    <optgroup label="Tingkatan 4">
+                                        <option value="4 Bestari">4 Bestari</option>
+                                        <option value="4 Fikrah">4 Fikrah</option>
+                                        <option value="4 Cendekia">4 Cendekia</option>
+                                        <option value="4 Sarjana">4 Sarjana</option>
+                                        <option value="4 Intelek">4 Intelek</option>
+                                    </optgroup>
+                                    <optgroup label="Tingkatan 5">
+                                        <option value="5 Bestari">5 Bestari</option>
+                                        <option value="5 Fikrah">5 Fikrah</option>
+                                        <option value="5 Cendekia">5 Cendekia</option>
+                                        <option value="5 Sarjana">5 Sarjana</option>
+                                        <option value="5 Intelek">5 Intelek</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 mb-1">3. Dorm Asrama</label>
+                                <input type="text" id="quiz-dorm" required placeholder="Cth: Blok A (Mutiara) / Harian" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm bg-white focus:ring-2 focus:ring-brand-500 outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 mb-1">4. Jantina</label>
+                                <select id="quiz-gender" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm bg-white focus:ring-2 focus:ring-brand-500 outline-none">
+                                    <option value="">-- Pilih Jantina --</option>
+                                    <option value="Lelaki">Lelaki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 mb-1">5. Guru Rujukan (GBK)</label>
+                                <select id="quiz-counselor" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm bg-white focus:ring-2 focus:ring-brand-500 outline-none">
+                                    <option value="">-- Pilih GBK --</option>
+                                    <option value="GBK 1: ROSNANI BINTI OSMAN">GBK 1: ROSNANI BINTI OSMAN</option>
+                                    <option value="GBK 2: NUR NABIHAH BINTI MD ZAINI">GBK 2: NUR NABIHAH BINTI MD ZAINI</option>
+                                    <option value="GBK 3: NUR ELIZMA BINTI ISMAIL">GBK 3: NUR ELIZMA BINTI ISMAIL</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2 pt-2">
+                            <i class="fa-solid fa-list-check text-brand-600"></i> Bahagian 2: Soalan Saringan (DASS-21)
+                        </h3>
+                        <div id="questions-container" class="space-y-4"></div>
+                    </div>
+
+                    <div class="pt-4">
+                        <button type="submit" id="quiz-submit-btn" class="w-full py-3.5 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl shadow-lg transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Hantar & Hantar ke Google Sheets
+                        </button>
+                    </div>
+                </form>
+
+                <div id="quiz-result" class="hidden mt-8 p-6 rounded-2xl border transition-all duration-300">
+                    <div class="flex items-start space-x-4">
+                        <div id="result-icon-bg" class="w-12 h-12 rounded-2xl flex items-center justify-center text-white text-2xl shrink-0">
+                            <i id="result-icon" class="fa-solid"></i>
+                        </div>
+                        <div class="space-y-2 flex-1">
+                            <h3 id="result-status" class="text-lg font-extrabold"></h3>
+                            <p id="result-student-info" class="text-xs font-semibold opacity-80"></p>
+                            <p id="result-description" class="text-xs sm:text-sm leading-relaxed"></p>
+                            <div id="result-action" class="pt-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pernafasan" class="py-16 bg-gradient-to-b from-slate-50 to-teal-50/50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span class="px-3 py-1 rounded-full bg-teal-100 text-brand-700 text-xs font-bold uppercase tracking-wider">Intervensi Awal Pantas</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">Latihan Pernafasan Menenangan (4-7-8)</h2>
+            <p class="text-slate-600 text-sm sm:text-base mt-2 max-w-xl mx-auto">
+                Gunakan alat interaktif ini apabila anda rasa gelisah, cemas, atau tertekan untuk menstabilkan semula degupan jantung dan emosi anda.
+            </p>
+
+            <div class="mt-10 bg-white rounded-3xl p-8 sm:p-12 shadow-xl border border-teal-100 flex flex-col items-center justify-center">
+                <div class="relative w-48 h-48 sm:w-64 sm:h-64 flex items-center justify-center my-6">
+                    <div id="breathing-bg" class="absolute inset-0 rounded-full bg-teal-100 opacity-60"></div>
+                    <div id="breathing-circle" class="breathing-circle w-40 h-40 sm:w-56 sm:h-56 rounded-full bg-brand-500 text-white flex flex-col items-center justify-center shadow-lg shadow-teal-500/30 z-10 relative overflow-hidden transition-all duration-1000">
+                        <div id="lung-icon-container" class="mb-2 transition-transform duration-1000 ease-in-out">
+                            <svg class="w-16 h-16 sm:w-20 sm:h-20 text-white drop-shadow-md" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M50 10 V40" stroke-width="5" />
+                                <path d="M50 35 L40 50 M50 35 L60 50" stroke-width="4" />
+                                <path d="M42 45 L32 60 M58 45 L68 60" stroke-width="3" />
+                                <path id="left-lung" class="transition-all duration-1000 origin-right" d="M47 38 C40 38 22 45 18 65 C14 85 28 92 42 85 C48 82 48 65 47 38 Z" fill="rgba(255, 255, 255, 0.3)" />
+                                <path id="right-lung" class="transition-all duration-1000 origin-left" d="M53 38 C60 38 78 45 82 65 C52 82 52 65 53 38 Z" fill="rgba(255, 255, 255, 0.3)" />
+                            </svg>
+                        </div>
+                        <span id="breathing-text" class="text-xs sm:text-sm font-bold tracking-wide">Sedia</span>
+                        <span id="breathing-timer" class="text-[11px] opacity-90 mt-0.5 font-semibold">Tekan Mula</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-4 mt-6">
+                    <button id="start-breathing-btn" class="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold shadow-md transition">
+                        <i class="fa-solid fa-play mr-2"></i> Mula Latihan
+                    </button>
+                    <button id="stop-breathing-btn" class="px-6 py-3 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold transition" disabled>
+                        <i class="fa-solid fa-stop mr-2"></i> Henti
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-3 gap-4 mt-10 w-full max-w-md text-xs sm:text-sm text-slate-600">
+                    <div class="p-3 bg-slate-50 rounded-xl border text-center">
+                        <span class="block font-bold text-brand-600">1. Hidu (4s)</span>
+                        <span>Tarik nafas perlahan</span>
+                    </div>
+                    <div class="p-3 bg-slate-50 rounded-xl border text-center">
+                        <span class="block font-bold text-amber-600">2. Tahan (7s)</span>
+                        <span>Tahan nafas anda</span>
+                    </div>
+                    <div class="p-3 bg-slate-50 rounded-xl border text-center">
+                        <span class="block font-bold text-sky-600">3. Hembus (8s)</span>
+                        <span>Hembus perlahan</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kata-kata Semangat & Inspirasi Harian -->
+            <div class="mt-8 bg-gradient-to-r from-teal-600 via-brand-600 to-emerald-600 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden text-left">
+                <div class="absolute -right-10 -bottom-10 opacity-10 text-white">
+                    <i class="fa-solid fa-quote-right text-9xl"></i>
+                </div>
+                <div class="relative z-10 max-w-3xl">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wider border border-white/30 flex items-center gap-1.5">
+                            <i class="fa-solid fa-lightbulb text-amber-300"></i> Kata-kata Semangat & Inspirasi Harian
+                        </span>
+                        <button id="next-quote-btn" class="px-3 py-1.5 rounded-xl bg-white/20 hover:bg-white/30 text-white text-xs font-semibold backdrop-blur-sm border border-white/30 transition flex items-center gap-1.5 active:scale-95">
+                            <i class="fa-solid fa-rotate"></i> Tukar Mesej
+                        </button>
+                    </div>
+                    <p id="quote-text" class="text-base sm:text-xl font-medium leading-relaxed italic">
+                        "Setiap langkah kecil yang anda ambil hari ini membawa anda lebih dekat kepada kejayaan esok. Rehat sejenak jika penat, tetapi jangan sekali-kali berputus asa!"
+                    </p>
+                    <div class="mt-4 pt-3 border-t border-white/20 flex items-center justify-between text-xs font-medium opacity-90">
+                        <span id="quote-author" class="font-bold text-amber-200">— Suara Kasih Tun Syed</span>
+                        <span class="text-white/80"><i class="fa-solid fa-heart mr-1 text-rose-300"></i> Khas untuk 690 Murid SMS Tun Syed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="prs" class="py-16 bg-white border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div class="lg:col-span-5 space-y-6">
+                    <div>
+                        <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider">PRS & Budaya Penyayang</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">Peranan Rakan Sebaya</h2>
+                        <p class="text-slate-600 text-sm mt-2">
+                            Rakan sebaya sering menjadi orang pertama yang menyedari perubahan emosi rakan. Anda mampu menjadi pendengar yang prihatin.
+                        </p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100 flex items-start space-x-3">
+                            <i class="fa-solid fa-ear-listen text-emerald-600 text-xl mt-1"></i>
+                            <div>
+                                <h4 class="font-bold text-slate-800 text-sm">Mendengar Secara Aktif</h4>
+                                <p class="text-xs text-slate-600 mt-0.5">Dengar tanpa menghakimi atau tergesa-gesa memberi penilaian.</p>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100 flex items-start space-x-3">
+                            <i class="fa-solid fa-heart text-emerald-600 text-xl mt-1"></i>
+                            <div>
+                                <h4 class="font-bold text-slate-800 text-sm">Empati & Prihatin</h4>
+                                <p class="text-xs text-slate-600 mt-0.5">Tunjukkan keperihatinan bahawa perasaan rakan anda adalah bernilai.</p>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100 flex items-start space-x-3">
+                            <i class="fa-solid fa-hand-holding-hand text-emerald-600 text-xl mt-1"></i>
+                            <div>
+                                <h4 class="font-bold text-slate-800 text-sm">Bantu Sambung Sokongan</h4>
+                                <p class="text-xs text-slate-600 mt-0.5">Galakkan rakan berjumpa Kaunselor Sekolah jika masalah terlalu berat.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 bg-slate-50 p-6 sm:p-8 rounded-3xl border border-slate-200">
+                    <div class="flex border-b border-slate-200 mb-6">
+                        <button id="tab-murni-btn" class="pb-3 px-4 text-sm font-bold border-b-2 border-brand-600 text-brand-600 focus:outline-none">
+                            <i class="fa-solid fa-paper-plane mr-2"></i> Kirim Mesej Positif
+                        </button>
+                        <button id="tab-adu-btn" class="pb-3 px-4 text-sm font-bold text-slate-500 hover:text-slate-800 focus:outline-none">
+                            <i class="fa-solid fa-user-shield mr-2"></i> Adu / Bantu Rakan (Rahsia)
+                        </button>
+                    </div>
+
+                    <div id="form-murni" class="space-y-4">
+                        <p class="text-xs text-slate-500">Hantar ucapan semangat atau doa murni secara terbuka atau anonim untuk dipaparkan di Dinding Positif.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 mb-1">Nama / Daripada</label>
+                                <input type="text" id="murni-sender" placeholder="Cth: Sahabat" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500 outline-none bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 mb-1">Tingkatan & Kelas</label>
+                                <select id="murni-class" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500 outline-none bg-white">
+                                    <option value="">-- Pilih Kelas --</option>
+                                    <optgroup label="Tingkatan 1">
+                                        <option value="1 Bestari">1 Bestari</option>
+                                        <option value="1 Fikrah">1 Fikrah</option>
+                                        <option value="1 Cendekia">1 Cendekia</option>
+                                        <option value="1 Sarjana">1 Sarjana</option>
+                                        <option value="1 Intelek">1 Intelek</option>
+                                    </optgroup>
+                                    <optgroup label="Tingkatan 2">
+                                        <option value="2 Bestari">2 Bestari</option>
+                                        <option value="2 Fikrah">2 Fikrah</option>
+                                        <option value="2 Cendekia">2 Cendekia</option>
+                                        <option value="2 Sarjana">2 Sarjana</option>
+                                        <option value="2 Intelek">2 Intelek</option>
+                                    </optgroup>
+                                    <optgroup label="Tingkatan 3">
+                                        <option value="3 Bestari">3 Bestari</option>
+                                        <option value="3 Fikrah">3 Fikrah</option>
+                                        <option value="3 Cendekia">3 Cendekia</option>
+                                        <option value="3 Sarjana">3 Sarjana</option>
+                                        <option value="3 Intelek">3 Intelek</option>
+                                    </optgroup>
+                                    <optgroup label="Tingkatan 4">
+                                        <option value="4 Bestari">4 Bestari</option>
+                                        <option value="4 Fikrah">4 Fikrah</option>
+                                        <option value="4 Cendekia">4 Cendekia</option>
+                                        <option value="4 Sarjana">4 Sarjana</option>
+                                        <option value="4 Intelek">4 Intelek</option>
+                                    </optgroup>
+                                    <optgroup label="Tingkatan 5">
+                                        <option value="5 Bestari">5 Bestari</option>
+                                        <option value="5 Fikrah">5 Fikrah</option>
+                                        <option value="5 Cendekia">5 Cendekia</option>
+                                        <option value="5 Sarjana">5 Sarjana</option>
+                                        <option value="5 Intelek">5 Intelek</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 mb-1">Dorm Asrama</label>
+                                <input type="text" id="murni-dorm" placeholder="Cth: Blok A / Harian" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500 outline-none bg-white">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Mesej Ucapan Semangat</label>
+                            <textarea id="murni-text" rows="3" placeholder="Tuliskan ucapan positif untuk rakan-rakan sekolah..." class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500 outline-none bg-white"></textarea>
+                        </div>
+                        <button id="submit-murni-btn" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl text-sm transition">
+                            Hantar Mesej Positif
+                        </button>
+
+                        <div class="mt-6 pt-4 border-t border-slate-200">
+                            <h4 class="text-xs font-bold uppercase text-slate-500 tracking-wider mb-3">Dinding Mesej Positif Terbaru</h4>
+                            <div id="murni-wall" class="space-y-2.5 max-h-48 overflow-y-auto pr-1">
+                                <div class="bg-white p-3 rounded-xl border border-slate-200 text-xs">
+                                    <span class="font-bold text-emerald-700 block">PRS Tingkatan 5 (5 Bestari):</span>
+                                    <p class="text-slate-600 mt-0.5">"Ingatlah, setiap ujian mengajar kita menjadi lebih kuat. Jangan ragu untuk minta bantuan ya!"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="form-adu" class="hidden space-y-4">
+                        <div class="bg-amber-50 p-3 rounded-xl border border-amber-200 text-xs text-amber-800">
+                            <i class="fa-solid fa-lock mr-1"></i> Maklumat ini dihantar terus secara RAHSIA kepada Unit Bimbingan & Kaunseling.
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 mb-1">Nama Rakan Yang Memerlukan Bantuan</label>
+                                <input type="text" id="adu-friend" placeholder="Cth: Ahmad Zaki" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500 outline-none bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 mb-1">Tingkatan & Kelas Rakan</label>
+                                <select id="adu-class" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500 outline-none bg-white">
+                                    <option value="">-- Pilih Kelas --</option>
+                                    <optgroup label="Tingkatan 1">
+                                        <option value="1 Bestari">1 Bestari</option>
+                                        <option value="1 Fikrah">1 Fikrah</option>
+                                        <option value="1 Cendekia">1 Cendekia</option>
+                                        <option value="1 Sarjana">1 Sarjana</option>
+                                        <option value="1 Intelek">1 Intelek</option>
+                                    </optgroup>
+                                    <optgroup label="Tingkatan 2">
+                                        <option value="2 Bestari">2 Bestari</option>
+                                        <option value="2 Fikrah">2 Fikrah</option>
+                                        <option value="2 Cendekia">2 Cendekia</option>
+                                        <option value="2 Sarjana">2 Sarjana</option>
+                                        <option value="2 Intelek">2 Intelek</option>
+                                    </optgroup>
+                                    <optgroup label="Tingkatan 3">
+                                        <option value="3 Bestari">3 Bestari</option>
+                                        <option value="3 Fikrah">3 Fikrah</option>
+                                        <option value="3 Cendekia">3 Cendekia</option>
+                                        <option value="3 Sarjana">3 Sarjana</option>
+                                        <option value="3 Intelek">3 Intelek</option>
+                                    </optgroup>
+                                    <optgroup label="Tingkatan 4">
+                                        <option value="4 Bestari">4 Bestari</option>
+                                        <option value="4 Fikrah">4 Fikrah</option>
+                                        <option value="4 Cendekia">4 Cendekia</option>
+                                        <option value="4 Sarjana">4 Sarjana</option>
+                                        <option value="4 Intelek">4 Intelek</option>
+                                    </optgroup>
+                                    <optgroup label="Tingkatan 5">
+                                        <option value="5 Bestari">5 Bestari</option>
+                                        <option value="5 Fikrah">5 Fikrah</option>
+                                        <option value="5 Cendekia">5 Cendekia</option>
+                                        <option value="5 Sarjana">5 Sarjana</option>
+                                        <option value="5 Intelek">5 Intelek</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 mb-1">Dorm Asrama Rakan</label>
+                                <input type="text" id="adu-dorm" placeholder="Cth: Blok B / Harian" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500 outline-none bg-white">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Sebab / Perubahan Yang Perlu Perhatian</label>
+                            <textarea id="adu-details" rows="3" placeholder="Sebab keprihatinan..." class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500 outline-none bg-white"></textarea>
+                        </div>
+                        <button id="submit-adu-btn" class="w-full py-3 bg-amber-600 hover:bg-amber-700 text-white font-semibold rounded-xl text-sm transition">
+                            Hantar Laporan Prihatin (Rahsia)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="temujanji" class="py-16 bg-slate-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-200">
+                <div class="text-center mb-8">
+                    <span class="px-3 py-1 rounded-full bg-sky-100 text-sky-700 text-xs font-bold uppercase tracking-wider">Perkhidmatan Sulit & Mesra</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">Borang Temujanji Kaunseling Sulit</h2>
+                    <p class="text-slate-600 text-sm sm:text-base mt-2">
+                        Pintu Unit Bimbingan & Kaunseling sentiasa terbuka. Anda boleh membuat permohonan sesi perbincangan.
+                    </p>
+                </div>
+
+                <form id="booking-form" class="space-y-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Nama Penuh</label>
+                            <input type="text" id="book-name" required placeholder="Cth: Pelajar A" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500 outline-none bg-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Tingkatan & Kelas</label>
+                            <input type="text" id="book-class" required placeholder="Cth: 4 Bestari" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500 outline-none bg-white">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Dorm Asrama / Status</label>
+                            <input type="text" id="book-dorm" required placeholder="Cth: Blok A (Mutiara) / Harian" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500 outline-none bg-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Guru Rujukan (GBK)</label>
+                            <select id="book-counselor" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500 outline-none bg-white">
+                                <option value="">-- Pilih GBK --</option>
+                                <option value="GBK 1: ROSNANI BINTI OSMAN">GBK 1: ROSNANI BINTI OSMAN</option>
+                                <option value="GBK 2: NUR NABIHAH BINTI MD ZAINI">GBK 2: NUR NABIHAH BINTI MD ZAINI</option>
+                                <option value="GBK 3: NUR ELIZMA BINTI ISMAIL">GBK 3: NUR ELIZMA BINTI ISMAIL</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Topik / Isu Perbincangan</label>
+                            <select id="book-topic" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500 outline-none bg-white">
+                                <option value="">-- Pilih Topik --</option>
+                                <option value="Tekanan Akademik">Tekanan Akademik / Peperiksaan</option>
+                                <option value="Isu Asrama">Isu Penyesuaian Asrama</option>
+                                <option value="Rakan Sebaya">Hubungan Rakan Sebaya</option>
+                                <option value="Pengurusan Stres">Pengurusan Stres & Emosi</option>
+                                <option value="Lain-lain">Lain-lain Hal</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Cadangan Tarikh & Masa</label>
+                            <input type="datetime-local" id="book-time" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500 outline-none bg-white">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-slate-700 mb-1">Catatan Tambahan (Pilihan)</label>
+                        <textarea id="book-notes" rows="3" placeholder="Sebutkan perkara ringkas..." class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500 outline-none bg-white"></textarea>
+                    </div>
+
+                    <button type="submit" id="booking-submit-btn" class="w-full py-3.5 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl shadow-lg transition">
+                        Hantar Permohonan Temujanji ke Google Sheets
+                    </button>
+                </form>
+
+                <div id="booking-success" class="hidden mt-6 p-6 rounded-2xl bg-emerald-50 border border-emerald-200 text-center space-y-2">
+                    <div class="w-12 h-12 bg-emerald-500 text-white rounded-full flex items-center justify-center mx-auto text-xl">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-emerald-900">Temujanji Berjaya Dihantar & Disync!</h3>
+                    <p class="text-sm text-emerald-700 max-w-md mx-auto">
+                        Guru Bimbingan dan Kaunseling akan menghubungi anda secara peribadi.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kecemasan" class="py-16 bg-gradient-to-b from-slate-900 to-slate-800 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-xs font-bold uppercase tracking-wider border border-rose-500/30">UNIT BIMBINGAN & KAUNSELING SEDIA MEMBANTU</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold mt-2">Talian Bantuan Kecemasan Psikososial</h2>
+                <p class="text-slate-400 text-sm sm:text-base mt-2">Bila rasa dunia ni terlalu berat, ingatlah anda tidak pernah bersendirian.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-slate-800/80 rounded-2xl p-6 border border-teal-500/30 flex flex-col justify-between shadow-lg">
+                    <div>
+                        <span class="text-xs font-bold text-teal-400 uppercase tracking-wider">GBK 1</span>
+                        <h3 class="text-lg font-bold mt-1">ROSNANI BINTI OSMAN</h3>
+                        <p class="text-xs text-slate-400 mt-2">Sokongan dan bimbingan kaunseling sulit.</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-700/80">
+                        <a href="tel:0194427313" class="inline-flex items-center justify-center w-full py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm transition shadow-md">
+                            <i class="fa-solid fa-phone mr-2"></i> 019-442-7313
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/80 rounded-2xl p-6 border border-teal-500/30 flex flex-col justify-between shadow-lg">
+                    <div>
+                        <span class="text-xs font-bold text-teal-400 uppercase tracking-wider">GBK 2</span>
+                        <h3 class="text-lg font-bold mt-1">NUR NABIHAH BINTI MD ZAINI</h3>
+                        <p class="text-xs text-slate-400 mt-2">Sokongan dan bimbingan kaunseling sulit.</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-700/80">
+                        <a href="tel:0183414071" class="inline-flex items-center justify-center w-full py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm transition shadow-md">
+                            <i class="fa-solid fa-phone mr-2"></i> 018-341-4071
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/80 rounded-2xl p-6 border border-teal-500/30 flex flex-col justify-between shadow-lg">
+                    <div>
+                        <span class="text-xs font-bold text-teal-400 uppercase tracking-wider">GBK 3</span>
+                        <h3 class="text-lg font-bold mt-1">NUR ELIZMA BINTI ISMAIL</h3>
+                        <p class="text-xs text-slate-400 mt-2">Sokongan dan bimbingan kaunseling sulit.</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-700/80">
+                        <a href="tel:0176882457" class="inline-flex items-center justify-center w-full py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm transition shadow-md">
+                            <i class="fa-solid fa-phone mr-2"></i> 017-688-2457
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Google Sheets Config Modal -->
+    <div id="sheets-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-teal-100 space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+                    <i class="fa-solid fa-file-excel text-emerald-600"></i> Pautan Google Sheets (Apps Script)
+                </h3>
+                <button onclick="closeSheetsConfigModal()" class="text-slate-400 hover:text-slate-700"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+                Masukkan URL Web App Google Apps Script anda di bawah supaya data ujian emosi & temujanji murid dihantar terus secara automatik ke fail Google Sheets GBK.
+            </p>
+            <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Google Apps Script Web App URL</label>
+                <input type="url" id="sheets-url-input" placeholder="https://script.google.com/macros/s/.../exec" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-brand-500 outline-none">
+            </div>
+            <div class="bg-teal-50 p-3 rounded-xl border border-teal-200 text-[11px] text-teal-800 space-y-1">
+                <span class="font-bold block"><i class="fa-solid fa-circle-info mr-1"></i> Cara Setup Pantas:</span>
+                <p>1. Buka Google Sheets baru & buat kolum: <code>Tarikh, Jenis, Nama, Kelas, Dorm, Jantina, GBK, Skor/Topik, Status</code>.</p>
+                <p>2. Pergi ke <em>Extensions > Apps Script</em>, paste kod handler POST, dan deploy sebagai <em>Web App</em> (Access: Anyone).</p>
+            </div>
+            <div class="flex gap-2 pt-2">
+                <button onclick="saveSheetsUrl()" class="flex-1 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl text-xs shadow">Simpan URL</button>
+                <button onclick="closeSheetsConfigModal()" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-xs">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-slate-950 text-slate-400 text-xs py-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+            <div class="flex items-center space-x-2">
+                <span class="font-semibold text-slate-300">KASIH TUN SYED - Unit Bimbingan & Kaunseling SM SAINS TUN SYED (690 Pelajar)</span>
+            </div>
+            <p>© 2026 Unit Bimbingan & Kaunseling. Hak Cipta Terpelihara.</p>
+        </div>
+    </footer>
+
+    <script>
+        const quizQuestions = [
+            { id: 1, en: "I found it hard to wind down", ms: "Saya dapati diri saya sukar ditenteramkan." },
+            { id: 2, en: "I was aware of dryness of my mouth", ms: "Saya sedar mulut saya terasa kering." },
+            { id: 3, en: "I couldn't seem to experience any positive feeling at all", ms: "Saya tidak dapat mengalami perasaan positif sama sekali." },
+            { id: 4, en: "I experienced breathing difficulty (e.g. excessively rapid breathing, breathlessness in the absence of physical exertion)", ms: "Saya mengalami kesukaran bernafas (contohnya pernafasan yang laju, tercungap-cungap walaupun tidak melakukan senaman fizikal)." },
+            { id: 5, en: "I found it difficult to work up the initiative to do things", ms: "Saya sukar untuk mendapatkan semangat bagi melakukan sesuatu perkara." },
+            { id: 6, en: "I tended to over-react to situations", ms: "Saya cenderung untuk bertindak keterlaluan dalam sesuatu keadaan." },
+            { id: 7, en: "I experienced trembling (e.g. in the hands)", ms: "Saya rasa menggeletar (contohnya pada tangan)." },
+            { id: 8, en: "I felt that I was using a lot of nervous energy", ms: "Saya rasa saya menggunakan banyak tenaga dalam keadaan cemas." },
+            { id: 9, en: "I was worried about situations in which I might panic and make a fool of myself", ms: "Saya bimbang keadaan di mana saya mungkin menjadi panik dan melakukan perkara yang membodohkan diri sendiri." },
+            { id: 10, en: "I felt that I had nothing to look forward to", ms: "Saya rasa saya tidak mempunyai apa-apa untuk diharapkan." },
+            { id: 11, en: "I found myself getting agitated", ms: "Saya dapati diri saya semakin gelisah." },
+            { id: 12, en: "I found it difficult to relax", ms: "Saya rasa sukar untuk relaks." },
+            { id: 13, en: "I felt down-hearted and blue", ms: "Saya rasa sedih dan murung." },
+            { id: 14, en: "I was intolerant of anything that kept me from getting on with what I was doing", ms: "Saya tidak dapat menahan sabar dengan perkara yang menghalang saya meneruskan apa yang saya lakukan." },
+            { id: 15, en: "I felt I was close to panic", ms: "Saya rasa hampir-hampir menjadi panik/cemas." },
+            { id: 16, en: "I was unable to become enthusiastic about anything", ms: "Saya tidak bersemangat dengan apa jua yang saya lakukan." },
+            { id: 17, en: "I felt I wasn't worth much as a person", ms: "Saya rasa tidak begitu berharga sebagai seorang individu." },
+            { id: 18, en: "I felt that I was rather touchy", ms: "Saya rasa saya mudah tersentuh." },
+            { id: 19, en: "I was aware of the action of my heart in the absence of physical exertion (e.g. sense of heart rate increase, heart missing a beat)", ms: "Saya sedar tindakbalas jantung saya walaupun tidak melakukan aktiviti fizikal (contohnya kadar denyutan jantung bertambah, atau denyutan jantung berkurangan)." },
+            { id: 20, en: "I felt scared without any good reason", ms: "Saya berasa takut tanpa sebab yang munasabah." },
+            { id: 21, en: "I felt that life was meaningless", ms: "Saya rasa hidup ini tidak bermakna." }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('questions-container');
+            if (container) {
+                container.innerHTML = quizQuestions.map((q, index) => `
+                    <div class="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-3">
+                        <div class="text-sm font-semibold text-slate-800">
+                            <span class="text-brand-700 font-bold mr-1">${index + 1}.</span> ${q.en}
+                            <p class="text-xs text-slate-600 font-normal mt-0.5 italic">${q.ms}</p>
+                        </div>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                            <label class="flex items-center space-x-2 p-2.5 rounded-xl bg-white border border-slate-200 cursor-pointer hover:border-brand-500 transition">
+                                <input type="radio" name="q${q.id}" value="0" required class="text-brand-600 focus:ring-brand-500">
+                                <span class="text-slate-600">Tidak Pernah (0)</span>
+                            </label>
+                            <label class="flex items-center space-x-2 p-2.5 rounded-xl bg-white border border-slate-200 cursor-pointer hover:border-brand-500 transition">
+                                <input type="radio" name="q${q.id}" value="1" class="text-brand-600 focus:ring-brand-500">
+                                <span class="text-slate-600">Jarang (1)</span>
+                            </label>
+                            <label class="flex items-center space-x-2 p-2.5 rounded-xl bg-white border border-slate-200 cursor-pointer hover:border-brand-500 transition">
+                                <input type="radio" name="q${q.id}" value="2" class="text-brand-600 focus:ring-brand-500">
+                                <span class="text-slate-600">Kerap (2)</span>
+                            </label>
+                            <label class="flex items-center space-x-2 p-2.5 rounded-xl bg-white border border-slate-200 cursor-pointer hover:border-brand-500 transition">
+                                <input type="radio" name="q${q.id}" value="3" class="text-brand-600 focus:ring-brand-500">
+                                <span class="text-slate-600">Sangat Kerap (3)</span>
+                            </label>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            }
+
+            const savedUrl = localStorage.getItem('kasih_tun_syed_sheets_url');
+            if (savedUrl) {
+                const input = document.getElementById('sheets-url-input');
+                if (input) input.value = savedUrl;
+            }
+        });
+
+        function openSheetsConfigModal() {
+            document.getElementById('sheets-modal').classList.remove('hidden');
+        }
+        function closeSheetsConfigModal() {
+            document.getElementById('sheets-modal').classList.add('hidden');
+        }
+        function saveSheetsUrl() {
+            const url = document.getElementById('sheets-url-input').value.trim();
+            localStorage.setItem('kasih_tun_syed_sheets_url', url);
+            closeSheetsConfigModal();
+            alertCustom("URL Google Sheets berjaya disimpan!");
+        }
+
+        async function sendDataToGoogleSheets(payload) {
+            const sheetsUrl = localStorage.getItem('kasih_tun_syed_sheets_url');
+            if (!sheetsUrl) return; 
+            try {
+                await fetch(sheetsUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+            } catch (err) {
+                console.error("Gagal hantar ke Google Sheets:", err);
+            }
+        }
+
+        const quizForm = document.getElementById('quiz-form');
+        if (quizForm) {
+            quizForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const studentName = document.getElementById('quiz-name').value.trim();
+                const studentClass = document.getElementById('quiz-class').value.trim();
+                const studentDorm = document.getElementById('quiz-dorm').value;
+                const studentGender = document.getElementById('quiz-gender').value;
+                const counselorRef = document.getElementById('quiz-counselor').value;
+
+                let totalScore = 0;
+                quizQuestions.forEach(q => {
+                    const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
+                    if (selected) totalScore += parseInt(selected.value, 10) || 0;
+                });
+
+                let statusText = "Stabil / Baik";
+                if (totalScore > 14 && totalScore <= 35) statusText = "Tekanan Sederhana";
+                else if (totalScore > 35) statusText = "Tekanan Tinggi (Perlu Perhatian)";
+
+                const resultBox = document.getElementById('quiz-result');
+                const resultIconBg = document.getElementById('result-icon-bg');
+                const resultIcon = document.getElementById('result-icon');
+                const resultStatus = document.getElementById('result-status');
+                const resultInfo = document.getElementById('result-student-info');
+                const resultDesc = document.getElementById('result-description');
+                const resultAction = document.getElementById('result-action');
+
+                if (resultBox) {
+                    resultBox.classList.remove('hidden');
+                    resultInfo.innerText = `Nama: ${studentName} (${studentClass}) | Dorm: ${studentDorm} | Jantina: ${studentGender} | GBK: ${counselorRef}`;
+                    
+                    if (totalScore <= 14) {
+                        resultBox.className = "mt-8 p-6 rounded-2xl border bg-emerald-50 border-emerald-200 text-emerald-900";
+                        resultIconBg.className = "w-12 h-12 rounded-2xl bg-emerald-600 flex items-center justify-center text-white text-2xl shrink-0";
+                        resultIcon.className = "fa-solid fa-face-smile";
+                        resultStatus.innerText = `Tahap Kesejahteraan Emosi Stabil (Skor: ${totalScore}/63)`;
+                        resultDesc.innerText = `Emosi anda tenang dan terkawal. Teruskan amalan gaya hidup sihat.`;
+                        resultAction.innerHTML = `<a href="#pernafasan" class="text-emerald-700 font-bold text-xs hover:underline"><i class="fa-solid fa-arrow-right mr-1"></i> Latihan pernafasan harian</a>`;
+                    } else if (totalScore <= 35) {
+                        resultBox.className = "mt-8 p-6 rounded-2xl border bg-amber-50 border-amber-200 text-amber-900";
+                        resultIconBg.className = "w-12 h-12 rounded-2xl bg-amber-600 flex items-center justify-center text-white text-2xl shrink-0";
+                        resultIcon.className = "fa-solid fa-face-meh";
+                        resultStatus.innerText = `Tekanan Sederhana (Skor: ${totalScore}/63)`;
+                        resultDesc.innerText = `Anda mengalami sedikit tekanan. Amalkan latihan pernafasan dan berhubung dengan ${counselorRef}.`;
+                        resultAction.innerHTML = `<a href="#temujanji" class="inline-block px-4 py-2 rounded-xl bg-amber-600 text-white font-semibold text-xs shadow">Tempah Sesi Kaunseling</a>`;
+                    } else {
+                        resultBox.className = "mt-8 p-6 rounded-2xl border bg-rose-50 border-rose-200 text-rose-900";
+                        resultIconBg.className = "w-12 h-12 rounded-2xl bg-rose-600 flex items-center justify-center text-white text-2xl shrink-0";
+                        resultIcon.className = "fa-solid fa-face-frown-open";
+                        resultStatus.innerText = `Tekanan Tinggi - Sila Dapatkan Sokongan (Skor: ${totalScore}/63)`;
+                        resultDesc.innerText = `Sila segera berjumpa dengan ${counselorRef} atau warden. Anda tidak sendirian.`;
+                        resultAction.innerHTML = `<a href="#temujanji" class="inline-block px-4 py-2 rounded-xl bg-rose-600 text-white font-semibold text-xs shadow mr-2">Jumpa Kaunselor</a>`;
+                    }
+                    resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+
+                // Sync to Google Sheets
+                await sendDataToGoogleSheets({
+                    timestamp: new Date().toLocaleString(),
+                    type: "Ujian DASS-21",
+                    name: studentName,
+                    class: studentClass,
+                    dorm: studentDorm,
+                    gender: studentGender,
+                    counselor: counselorRef,
+                    scoreOrTopic: `Skor: ${totalScore}/63`,
+                    status: statusText
+                });
+
+                alertCustom("Keputusan ujian telah berjaya disimpan dan dihantar ke Google Sheets GBK!");
+            });
+        }
+
+        // Breathing animation logic
+        let breathingInterval = null;
+        const startBtn = document.getElementById('start-breathing-btn');
+        const stopBtn = document.getElementById('stop-breathing-btn');
+        const circle = document.getElementById('breathing-circle');
+        const bText = document.getElementById('breathing-text');
+        const bTimer = document.getElementById('breathing-timer');
+        const leftLung = document.getElementById('left-lung');
+        const rightLung = document.getElementById('right-lung');
+
+        if (startBtn && stopBtn) {
+            startBtn.addEventListener('click', () => {
+                startBtn.disabled = true;
+                stopBtn.disabled = false;
+                runBreathingCycle();
+            });
+            stopBtn.addEventListener('click', stopBreathingSession);
+        }
+
+        function stopBreathingSession() {
+            if (breathingInterval) clearInterval(breathingInterval);
+            breathingInterval = null;
+            if (circle) circle.className = "breathing-circle w-40 h-40 sm:w-56 sm:h-56 rounded-full bg-brand-500 text-white flex flex-col items-center justify-center shadow-lg shadow-teal-500/30 z-10 relative overflow-hidden transition-all duration-1000";
+            if (leftLung) leftLung.style.transform = "scaleX(1) scaleY(1)";
+            if (rightLung) rightLung.style.transform = "scaleX(1) scaleY(1)";
+            if (bText) bText.innerText = "Sedia";
+            if (bTimer) bTimer.innerText = "Tekan Mula";
+            if (startBtn) startBtn.disabled = false;
+            if (stopBtn) stopBtn.disabled = true;
+        }
+
+        function runBreathingCycle() {
+            if (!circle) return;
+            circle.className = "breathing-circle breathing-active-inhale w-40 h-40 sm:w-56 sm:h-56 rounded-full text-slate-800 flex flex-col items-center justify-center shadow-lg z-10 relative overflow-hidden transition-all duration-[4000ms]";
+            if (leftLung) leftLung.style.transform = "scaleX(1.2) scaleY(1.15)";
+            if (rightLung) rightLung.style.transform = "scaleX(1.2) scaleY(1.15)";
+            bText.innerText = "Tarik Nafas";
+            let t1 = 4; bTimer.innerText = `${t1}s`;
+            
+            breathingInterval = setInterval(() => {
+                t1--;
+                if (t1 > 0) bTimer.innerText = `${t1}s`;
+                else { clearInterval(breathingInterval); runHoldPhase(); }
+            }, 1000);
+        }
+
+        function runHoldPhase() {
+            if (!circle) return;
+            circle.className = "breathing-circle breathing-active-hold w-40 h-40 sm:w-56 sm:h-56 rounded-full text-slate-800 flex flex-col items-center justify-center shadow-lg z-10 relative overflow-hidden transition-all duration-1000";
+            bText.innerText = "Tahan Nafas";
+            let t2 = 7; bTimer.innerText = `${t2}s`;
+
+            breathingInterval = setInterval(() => {
+                t2--;
+                if (t2 > 0) bTimer.innerText = `${t2}s`;
+                else { clearInterval(breathingInterval); runExhalePhase(); }
+            }, 1000);
+        }
+
+        function runExhalePhase() {
+            if (!circle) return;
+            circle.className = "breathing-circle breathing-active-exhale w-40 h-40 sm:w-56 sm:h-56 rounded-full text-slate-800 flex flex-col items-center justify-center shadow-lg z-10 relative overflow-hidden transition-all duration-[8000ms]";
+            if (leftLung) leftLung.style.transform = "scaleX(1) scaleY(1)";
+            if (rightLung) rightLung.style.transform = "scaleX(1) scaleY(1)";
+            bText.innerText = "Hembus Perlahan";
+            let t3 = 8; bTimer.innerText = `${t3}s`;
+
+            breathingInterval = setInterval(() => {
+                t3--;
+                if (t3 > 0) bTimer.innerText = `${t3}s`;
+                else { clearInterval(breathingInterval); if (stopBtn && !stopBtn.disabled) runBreathingCycle(); }
+            }, 1000);
+        }
+
+        // Quotes rotator
+        const studentQuotes = [
+            { quote: "Setiap langkah kecil yang anda ambil hari ini membawa anda lebih dekat kepada kejayaan esok.", author: "Suara Kasih Tun Syed" },
+            { quote: "Kegagalan bukanlah penamat, tetapi permulaan untuk anda menjadi lebih kuat.", author: "Mutiara Kata Motivasi" },
+            { quote: "Anda tidak bersendirian di sekolah atau asrama ini. Ada rakan dan guru yang sentiasa bersedia mendengar.", author: "Unit Bimbingan & Kaunseling" }
+        ];
+        let currentQuoteIndex = 0;
+        const nextQuoteBtn = document.getElementById('next-quote-btn');
+        if (nextQuoteBtn) {
+            nextQuoteBtn.addEventListener('click', () => {
+                currentQuoteIndex = (currentQuoteIndex + 1) % studentQuotes.length;
+                document.getElementById('quote-text').innerText = `"${studentQuotes[currentQuoteIndex].quote}"`;
+                document.getElementById('quote-author').innerText = `— ${studentQuotes[currentQuoteIndex].author}`;
+            });
+        }
+
+        // Tabs & Wall
+        const tabMurniBtn = document.getElementById('tab-murni-btn');
+        const tabAduBtn = document.getElementById('tab-adu-btn');
+        const formMurni = document.getElementById('form-murni');
+        const formAdu = document.getElementById('form-adu');
+
+        if (tabMurniBtn && tabAduBtn) {
+            tabMurniBtn.addEventListener('click', () => {
+                tabMurniBtn.className = "pb-3 px-4 text-sm font-bold border-b-2 border-brand-600 text-brand-600 focus:outline-none";
+                tabAduBtn.className = "pb-3 px-4 text-sm font-bold text-slate-500 hover:text-slate-800 focus:outline-none";
+                formMurni.classList.remove('hidden'); formAdu.classList.add('hidden');
+            });
+            tabAduBtn.addEventListener('click', () => {
+                tabAduBtn.className = "pb-3 px-4 text-sm font-bold border-b-2 border-brand-600 text-brand-600 focus:outline-none";
+                tabMurniBtn.className = "pb-3 px-4 text-sm font-bold text-slate-500 hover:text-slate-800 focus:outline-none";
+                formAdu.classList.remove('hidden'); formMurni.classList.add('hidden');
+            });
+        }
+
+        let murniMessages = [{ sender: "Sahabat", classVal: "4 Bestari", message: "Jangan putus asa dengan peperiksaan ni. Kita usaha sama-sama!" }];
+        function renderMurniMessages() {
+            const listContainer = document.getElementById('murni-wall');
+            if (listContainer) {
+                listContainer.innerHTML = murniMessages.map(m => `
+                    <div class="bg-white p-3 rounded-xl border border-slate-200 text-xs shadow-sm">
+                        <span class="font-bold text-emerald-700 block">${m.sender} (${m.classVal}):</span>
+                        <p class="text-slate-600 mt-0.5">"${m.message}"</p>
+                    </div>
+                `).join('');
+            }
+        }
+
+        const submitMurniBtn = document.getElementById('submit-murni-btn');
+        if (submitMurniBtn) {
+            submitMurniBtn.addEventListener('click', () => {
+                const sender = document.getElementById('murni-sender').value.trim() || 'Pelajar';
+                const classVal = document.getElementById('murni-class').value || '-';
+                const message = document.getElementById('murni-text').value.trim();
+                if (!message) return;
+                murniMessages.unshift({ sender, classVal, message });
+                renderMurniMessages();
+                document.getElementById('murni-text').value = '';
+            });
+        }
+
+        const submitAduBtn = document.getElementById('submit-adu-btn');
+        if (submitAduBtn) {
+            submitAduBtn.addEventListener('click', async () => {
+                const friend = document.getElementById('adu-friend').value.trim();
+                const desc = document.getElementById('adu-details').value.trim();
+                if (!friend || !desc) return;
+                await sendDataToGoogleSheets({
+                    timestamp: new Date().toLocaleString(),
+                    type: "Laporan Prihatin Rkan",
+                    name: friend,
+                    class: document.getElementById('adu-class').value,
+                    dorm: "Asrama/Harian",
+                    gender: "-",
+                    counselor: "GBK Bertugas",
+                    scoreOrTopic: desc,
+                    status: "Perlu Perhatian Segera"
+                });
+                alertCustom("Laporan prihatin rahsia berjaya dihantar ke Google Sheets!");
+                document.getElementById('adu-friend').value = '';
+                document.getElementById('adu-details').value = '';
+                tabMurniBtn.click();
+            });
+        }
+
+        // Booking form
+        const bookingForm = document.getElementById('booking-form');
+        const bookingSuccess = document.getElementById('booking-success');
+        if (bookingForm) {
+            bookingForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const name = document.getElementById('book-name').value.trim();
+                const studentClass = document.getElementById('book-class').value.trim();
+                const dorm = document.getElementById('book-dorm').value.trim();
+                const counselor = document.getElementById('book-counselor').value;
+                const topic = document.getElementById('book-topic').value;
+                const time = document.getElementById('book-time').value;
+                const notes = document.getElementById('book-notes').value.trim();
+
+                await sendDataToGoogleSheets({
+                    timestamp: new Date().toLocaleString(),
+                    type: "Temujanji Kaunseling",
+                    name: name,
+                    class: studentClass,
+                    dorm: dorm,
+                    gender: "-",
+                    counselor: counselor,
+                    scoreOrTopic: `${topic} (${time}) ${notes ? '- Catatan: ' + notes : ''}`,
+                    status: "Menunggu Temujanji"
+                });
+
+                if (bookingSuccess) bookingSuccess.classList.remove('hidden');
+                bookingForm.reset();
+                setTimeout(() => { if (bookingSuccess) bookingSuccess.classList.add('hidden'); }, 6000);
+            });
+        }
+
+        function alertCustom(msg) {
+            const div = document.createElement('div');
+            div.className = "fixed bottom-4 right-4 z-50 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-xl text-xs flex items-center space-x-3 border border-teal-500/40 animate-bounce";
+            div.innerHTML = `<i class="fa-solid fa-circle-check text-teal-400 text-base"></i><span>${msg}</span>`;
+            document.body.appendChild(div);
+            setTimeout(() => div.remove(), 4000);
+        }
+    </script>
+</body>
+</html>
